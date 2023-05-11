@@ -53,6 +53,17 @@ class MainActivity : AppCompatActivity() {
             }
         }
         registerForContextMenu(binding.personLv)
+
+        binding.personLv.setOnItemClickListener(object: AdapterView.OnItemClickListener {
+            override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+                val person = personsList[position]
+                val personIntent = Intent(this@MainActivity, PersonActivity::class.java)
+                personIntent.putExtra("Person", person)
+                personIntent.putExtra("ViewPerson",true)
+
+                acrl.launch(personIntent)
+            }
+        })
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -86,8 +97,8 @@ class MainActivity : AppCompatActivity() {
         val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
         val person = personsList[position]
 
-        return when(item.itemId){
-            R.id.removePersonMi ->{
+        return when (item.itemId) {
+            R.id.removePersonMi -> {
                 personsList.removeAt(position)
                 personAdapter.notifyDataSetChanged()
 
