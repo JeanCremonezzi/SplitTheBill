@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/add_participantes"
+        android:title="Adicionar participante"
+        android:icon="@android:drawable/ic_menu_add"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/clear_participantes"
+        android:title="Limpar lista"
+        android:icon="@android:drawable/ic_menu_delete"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:id="@+id/calc_participantes"
+        android:title="Calcular pagamento"
+        android:icon="@drawable/ic_menu_calc"
+        app:showAsAction="ifRoom"/>
+</menu>
