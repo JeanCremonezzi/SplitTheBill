@@ -3,19 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/add_participantes"
+        android:id="@+id/addPerson"
         android:title="Adicionar participante"
         android:icon="@android:drawable/ic_menu_add"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/clear_participantes"
+        android:id="@+id/clearList"
         android:title="Limpar lista"
         android:icon="@android:drawable/ic_menu_delete"
         app:showAsAction="ifRoom"/>
 
     <item
-        android:id="@+id/calc_participantes"
+        android:id="@+id/calcBill"
         android:title="Calcular pagamento"
         android:icon="@drawable/ic_menu_calc"
         app:showAsAction="ifRoom"/>
