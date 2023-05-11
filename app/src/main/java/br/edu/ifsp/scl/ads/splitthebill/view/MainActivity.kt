@@ -95,6 +95,12 @@ class MainActivity : AppCompatActivity() {
 
                 true
             }
+            R.id.calcBill -> {
+                val billActivity = Intent(this, BillActivity::class.java)
+                acrl.launch(billActivity)
+
+                true
+            }
             else -> false
         }
     }
