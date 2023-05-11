@@ -22,15 +22,15 @@ class PersonAdapter(context: Context, private val personList:MutableList<Person>
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
                     parent, false
                 )
+                
+                personItemView = binding.root
+
+                val holder = PersonItemViewHolder(
+                    personItemView.findViewById(R.id.nameTxt),
+                    personItemView.findViewById(R.id.valueTxt)
+                )
+                personItemView.tag = holder
             }
-
-            personItemView = binding.root
-
-            val holder = PersonItemViewHolder(
-                personItemView.findViewById(R.id.nameTxt),
-                personItemView.findViewById(R.id.valueTxt)
-            )
-            personItemView.tag = holder
 
             with(personItemView.tag as PersonItemViewHolder) {
                 nameTxt.text = person.nome

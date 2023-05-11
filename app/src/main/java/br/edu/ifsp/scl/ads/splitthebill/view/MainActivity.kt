@@ -66,7 +66,7 @@ class MainActivity : AppCompatActivity() {
             R.id.clearList -> {
                 personsList.clear()
                 personAdapter.notifyDataSetChanged()
-                
+
                 true
             }
             else -> false
