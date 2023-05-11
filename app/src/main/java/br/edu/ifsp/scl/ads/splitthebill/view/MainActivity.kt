@@ -1,8 +1,9 @@
-package br.edu.ifsp.scl.ads.splitthebill
+package br.edu.ifsp.scl.ads.splitthebill.view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
+import br.edu.ifsp.scl.ads.splitthebill.R
 import br.edu.ifsp.scl.ads.splitthebill.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
