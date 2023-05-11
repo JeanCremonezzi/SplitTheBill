@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity() {
                     if (_person.id != -1) {
                         var position = _person.id
                         personsList[position] = _person
+
                     } else {
                         _person.id = personsCount
                         personsCount++

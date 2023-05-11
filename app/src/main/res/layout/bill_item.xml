@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/nameTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Nome"
+        android:textSize="25sp" />
+
+    <TextView
+        android:id="@+id/valueTxt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Valor pago" />
+
+    <TextView
+        android:id="@+id/calcTxt"
+        android:paddingTop="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Deve pagar/receber X"
+        android:textStyle="bold"
+        android:textSize="15sp"
+        android:textAllCaps="true" />
+
+</LinearLayout>
