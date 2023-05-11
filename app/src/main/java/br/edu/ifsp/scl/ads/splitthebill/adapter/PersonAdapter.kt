@@ -22,7 +22,7 @@ class PersonAdapter(context: Context, private val personList:MutableList<Person>
                     context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater,
                     parent, false
                 )
-                
+
                 personItemView = binding.root
 
                 val holder = PersonItemViewHolder(

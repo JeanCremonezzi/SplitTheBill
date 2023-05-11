@@ -4,8 +4,12 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.AdapterView
+import android.widget.Toast
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import br.edu.ifsp.scl.ads.splitthebill.R
@@ -48,6 +52,7 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        registerForContextMenu(binding.personLv)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -67,6 +72,26 @@ class MainActivity : AppCompatActivity() {
                 personsList.clear()
                 personAdapter.notifyDataSetChanged()
 
+                true
+            }
+            else -> false
+        }
+    }
+
+    override fun onCreateContextMenu(menu: ContextMenu?, v: View, menuInfo: ContextMenu.ContextMenuInfo?){
+        menuInflater.inflate(R.menu.context_menu, menu)
+    }
+
+    override fun onContextItemSelected(item: MenuItem): Boolean {
+        val position = (item.menuInfo as AdapterView.AdapterContextMenuInfo).position
+        val person = personsList[position]
+
+        return when(item.itemId){
+            R.id.removePersonMi ->{
+                personsList.removeAt(position)
+                personAdapter.notifyDataSetChanged()
+
+                Toast.makeText(this,"Pessoa removida!", Toast.LENGTH_SHORT).show()
                 true
             }
             else -> false
