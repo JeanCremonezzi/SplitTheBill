@@ -28,6 +28,9 @@ class PersonActivity : AppCompatActivity() {
 
         receivedPerson?.let { _receivedPerson ->
             with (binding) {
+                nameEt.isEnabled = false
+                saveBtn.text = "Atualizar pessoa"
+
                 with (_receivedPerson) {
                     nameEt.setText(nome)
                     valueEt.setText(valor.toString())
@@ -38,7 +41,6 @@ class PersonActivity : AppCompatActivity() {
 
         val viewPerson = intent.getBooleanExtra("ViewPerson", false)
         with (binding) {
-            nameEt.isEnabled = !viewPerson
             valueEt.isEnabled = !viewPerson
             itemsEt.isEnabled = !viewPerson
             saveBtn.visibility = if (viewPerson) View.GONE else View.VISIBLE
@@ -47,6 +49,7 @@ class PersonActivity : AppCompatActivity() {
         with(binding) {
             saveBtn.setOnClickListener {
                 val person = Person(
+                    receivedPerson?.id ?: -1,
                     nameEt.text.toString(),
                     valueEt.text.toString().toDouble(),
                     itemsEt.text.toString()

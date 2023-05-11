@@ -23,6 +23,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val personsList : MutableList<Person> = mutableListOf()
+    private var personsCount: Int = 2;
     private val personAdapter: PersonAdapter by lazy {
         PersonAdapter(this, personsList)
     }
@@ -33,8 +34,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        personsList.add(Person("Jean", 20.0, "Café"))
-        personsList.add(Person("Fulano", 50.0, "Pão, Requeijão, Mussarela"))
+        personsList.add(Person(0, "Jean", 20.0, "Café"))
+        personsList.add(Person(1, "Fulano", 50.0, "Pão, Requeijão, Mussarela"))
         
         binding.personLv.adapter = personAdapter
 
@@ -47,7 +48,15 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 person?.let {_person ->
-                    personsList.add(_person)
+                    if (_person.id != -1) {
+                        var position = _person.id
+                        personsList[position] = _person
+                    } else {
+                        _person.id = personsCount
+                        personsCount++
+                        personsList.add(_person)
+                    }
+
                     personAdapter.notifyDataSetChanged()
                 }
             }
@@ -103,6 +112,13 @@ class MainActivity : AppCompatActivity() {
                 personAdapter.notifyDataSetChanged()
 
                 Toast.makeText(this,"Pessoa removida!", Toast.LENGTH_SHORT).show()
+                true
+            }
+            R.id.editPersonMi -> {
+                val personIntent = Intent(this, PersonActivity::class.java)
+                personIntent.putExtra("Person", person)
+
+                acrl.launch(personIntent)
                 true
             }
             else -> false
