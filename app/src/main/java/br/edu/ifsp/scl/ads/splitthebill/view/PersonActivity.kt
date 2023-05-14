@@ -29,6 +29,8 @@ class PersonActivity : AppCompatActivity() {
         receivedPerson?.let { _receivedPerson ->
             with (binding) {
                 nameEt.isEnabled = false
+                supportActionBar?.hide()
+
                 saveBtn.text = "Atualizar pessoa"
 
                 with (_receivedPerson) {
@@ -49,7 +51,7 @@ class PersonActivity : AppCompatActivity() {
         with(binding) {
             saveBtn.setOnClickListener {
                 val person = Person(
-                    receivedPerson?.id ?: -1,
+                    receivedPerson?.id,
                     nameEt.text.toString(),
                     valueEt.text.toString().toDouble(),
                     itemsEt.text.toString()

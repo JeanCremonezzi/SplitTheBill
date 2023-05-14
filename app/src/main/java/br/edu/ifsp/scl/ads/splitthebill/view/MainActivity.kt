@@ -14,6 +14,8 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import br.edu.ifsp.scl.ads.splitthebill.R
 import br.edu.ifsp.scl.ads.splitthebill.adapter.PersonAdapter
+import br.edu.ifsp.scl.ads.splitthebill.controller.PersonController
+import br.edu.ifsp.scl.ads.splitthebill.controller.PersonInsertedListener
 import br.edu.ifsp.scl.ads.splitthebill.databinding.ActivityMainBinding
 import br.edu.ifsp.scl.ads.splitthebill.model.Person
 
@@ -23,19 +25,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val personsList : MutableList<Person> = mutableListOf()
-    private var personsCount: Int = 2;
     private val personAdapter: PersonAdapter by lazy {
         PersonAdapter(this, personsList)
     }
 
     private lateinit var acrl: ActivityResultLauncher<Intent>
 
+    private val personController: PersonController by lazy {
+        PersonController(this)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        personController.getPersons()
 
-        personsList.add(Person(0, "Jean", 20.0, "Café"))
-        personsList.add(Person(1, "Fulano", 50.0, "Pão, Requeijão, Mussarela"))
+        //personsList.add(Person(0, "Jean", 20.0, "Café"))
+        //personsList.add(Person(1, "Fulano", 50.0, "Pão, Requeijão, Mussarela"))
         
         binding.personLv.adapter = personAdapter
 
@@ -48,14 +54,19 @@ class MainActivity : AppCompatActivity() {
                 }
 
                 person?.let {_person ->
-                    if (_person.id != -1) {
-                        var position = _person.id
+                    var position = personsList.indexOfFirst { it.id == _person.id }
+
+                    if (position != -1) {
                         personsList[position] = _person
+                        personController.editPerson(_person)
 
                     } else {
-                        _person.id = personsCount
-                        personsCount++
-                        personsList.add(_person)
+                        personController.insertPerson(_person, object : PersonInsertedListener {
+                            override fun PersonInserted() {
+                                personController.getPersons()
+                                personAdapter.notifyDataSetChanged()
+                            }
+                        })
                     }
 
                     personAdapter.notifyDataSetChanged()
@@ -84,21 +95,21 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.addPerson -> {
-                val personActivity = Intent(this, PersonActivity::class.java)
-                acrl.launch(personActivity)
+                val personIntent = Intent(this, PersonActivity::class.java)
+                acrl.launch(personIntent)
 
                 true
             }
             R.id.clearList -> {
                 personsList.clear()
+                personController.removeAllPersons()
                 personAdapter.notifyDataSetChanged()
 
                 true
             }
             R.id.calcBill -> {
-                val billActivity = Intent(this, BillActivity::class.java)
-                acrl.launch(billActivity)
-
+                val billIntent = Intent(this, BillActivity::class.java)
+                acrl.launch(billIntent)
                 true
             }
             else -> false
@@ -116,6 +127,7 @@ class MainActivity : AppCompatActivity() {
         return when (item.itemId) {
             R.id.removePersonMi -> {
                 personsList.removeAt(position)
+                personController.removePerson(person)
                 personAdapter.notifyDataSetChanged()
 
                 Toast.makeText(this,"Pessoa removida!", Toast.LENGTH_SHORT).show()
@@ -130,5 +142,12 @@ class MainActivity : AppCompatActivity() {
             }
             else -> false
         }
+    }
+
+    fun updatePersonList(_personList: MutableList<Person>){
+        personsList.clear()
+        personsList.addAll(_personList)
+
+        personAdapter.notifyDataSetChanged()
     }
 }
