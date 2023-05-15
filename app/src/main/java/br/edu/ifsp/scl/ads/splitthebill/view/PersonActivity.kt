@@ -19,13 +19,14 @@ class PersonActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        supportActionBar?.subtitle = ("Adicionar pessoa")
 
         val receivedPerson = getReceivedPerson()
         receivedPerson?.let { _receivedPerson ->
+            supportActionBar?.subtitle = ("Visualizar ou editar pessoa")
+
             with (binding) {
                 nameEt.isEnabled = false
-                //supportActionBar?.hide()
-
                 saveBtn.text = "Atualizar pessoa"
 
                 with (_receivedPerson) {

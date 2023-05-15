@@ -27,6 +27,7 @@ class BillActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         billController.getPersons()
+        supportActionBar?.subtitle = ("Divisão da conta")
 
         binding.billLv.adapter = billAdapter
     }

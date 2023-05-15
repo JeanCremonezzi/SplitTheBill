@@ -40,7 +40,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         personController.getPersons()
-        
+        supportActionBar?.subtitle = ("Lista de pessoas")
+
         binding.personLv.adapter = personAdapter
 
         acrl = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
