@@ -34,7 +34,7 @@ class PersonAdapter(context: Context, private val personList:MutableList<Person>
 
             with(personItemView.tag as PersonItemViewHolder) {
                 nameTxt.text = person.nome
-                valueTxt.text = person.valor.toString()
+                valueTxt.text = "Gastou R$ ${person.valor.toString()}"
             }
 
             return personItemView

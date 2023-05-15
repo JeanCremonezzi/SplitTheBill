@@ -20,16 +20,11 @@ class PersonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
-        val receivedPerson = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            intent.getParcelableExtra("Person", Person::class.java)
-        } else {
-            intent.getParcelableExtra("Person")
-        }
-
+        val receivedPerson = getReceivedPerson()
         receivedPerson?.let { _receivedPerson ->
             with (binding) {
                 nameEt.isEnabled = false
-                supportActionBar?.hide()
+                //supportActionBar?.hide()
 
                 saveBtn.text = "Atualizar pessoa"
 
@@ -65,8 +60,13 @@ class PersonActivity : AppCompatActivity() {
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu?): Boolean{
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.person_menu, menu)
+
+        if (getReceivedPerson() != null) {
+            menu.getItem(0).isVisible = false
+        }
+
         return true
     }
 
@@ -83,5 +83,15 @@ class PersonActivity : AppCompatActivity() {
             }
             else -> false
         }
+    }
+
+    private fun getReceivedPerson(): Person? {
+        val receivedPerson = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra("Person", Person::class.java)
+        } else {
+            intent.getParcelableExtra("Person")
+        }
+
+        return receivedPerson
     }
 }
