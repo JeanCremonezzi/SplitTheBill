@@ -25,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private val personsList : MutableList<Person> = mutableListOf()
+
     private val personAdapter: PersonAdapter by lazy {
         PersonAdapter(this, personsList)
     }
@@ -39,9 +40,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
         personController.getPersons()
-
-        //personsList.add(Person(0, "Jean", 20.0, "Café"))
-        //personsList.add(Person(1, "Fulano", 50.0, "Pão, Requeijão, Mussarela"))
         
         binding.personLv.adapter = personAdapter
 

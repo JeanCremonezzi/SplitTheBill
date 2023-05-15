@@ -13,10 +13,4 @@ data class Person (
     @NonNull var nome: String,
     var valor: Double,
     var itens: String
-): Parcelable {
-
-    /*fun calcBill(persons: MutableList<Person>): Double {
-        var total = persons.map { it.valor }.sum()
-        var totalPersons = persons.size
-    }*/
-}
+): Parcelable
