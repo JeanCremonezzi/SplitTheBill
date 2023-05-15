@@ -49,7 +49,7 @@ class PersonActivity : AppCompatActivity() {
                 val person = Person(
                     receivedPerson?.id,
                     nameEt.text.toString(),
-                    valueEt.text.toString().toDouble(),
+                    valueEt.text.toString().toDoubleOrNull() ?: 0.0,
                     itemsEt.text.toString()
                 )
 
